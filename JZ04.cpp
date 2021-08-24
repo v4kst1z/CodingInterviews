@@ -73,6 +73,7 @@ int main() {
       if (node->right)
         qNode.push(node->right);
 
+      delete node;
       num--;
     }
     cout << "\n";

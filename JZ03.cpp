@@ -66,5 +66,8 @@ int main() {
   auto arr = sou.printListFromTailToHead(node1);
   for (auto elem : arr)
     cout << elem << " ";
+  delete node1;
+  delete node2;
+  delete node3;
   return 0;
 }

@@ -7,15 +7,24 @@
  */
 
 #include <iostream>
-
+#include <numeric>
+#include <vector>
 using namespace std;
-
 class Solution {
 public:
-  int jumpFloorII(int number) {}
+  int jumpFloorII(int number) {
+    vector<int> dp(number + 1, 0);
+    dp[1] = 1;
+    dp[2] = 2;
+
+    for (int idx = 3; idx <= number; idx++) {
+      dp[idx] = accumulate(dp.begin(), dp.begin() + idx, 0) + 1;
+    }
+    return dp[number];
+  }
 };
 
 int main() {
   Solution sou;
-  cout << sou.jumpFloorII(7) << endl;
+  cout << sou.jumpFloorII(3) << endl;
 }
