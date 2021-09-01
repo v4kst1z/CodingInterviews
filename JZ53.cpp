@@ -13,18 +13,66 @@ using namespace std;
 class Solution {
 public:
   /**
-   * 代码中的类名、方法名、参数名已经指定，请勿修改，直接返回方法规定的值即可
-   *
-   *
    * @param str string字符串
    * @return bool布尔型
    */
   bool isNumeric(string str) {
-    // write code here
+    int len = str.size();
+    size_t idx = 0;
+    bool hasSign = false, hasNum = false, hasE = false, hasDot = false;
+
+    while (idx < len && str[idx] == ' ') {
+      idx++;
+    }
+    if (str[idx] == '-' || str[idx] == '+') {
+      hasSign = true;
+      idx++;
+    }
+
+    while ((str[idx] >= '0' && str[idx] <= '9') || str[idx] == '.') {
+      if (str[idx] == '.') {
+        if (hasDot == true)
+          return false;
+        else {
+          hasDot = true;
+          if (idx + 1 < len) {
+            if (str[idx + 1] >= '0' && str[idx + 1] <= '9')
+              hasNum = true;
+          }
+        }
+      } else {
+        if (!hasDot && (str[idx] >= '0' && str[idx] <= '9'))
+          hasNum = true;
+      }
+      idx++;
+    }
+
+    if (str[idx] == 'e' || str[idx] == 'E') {
+      if (hasNum == false)
+        return false;
+      hasE = true;
+      idx++;
+      if (str[idx] == '-' || str[idx] == '+')
+        idx++;
+      if (!(str[idx] >= '0' && str[idx] <= '9'))
+        return false;
+    }
+    while (str[idx] >= '0' && str[idx] <= '9') {
+      idx++;
+    }
+    while (str[idx] == ' ') {
+      idx++;
+    }
+    if (idx != len)
+      return false;
+    if (!hasNum)
+      return false;
+    return true;
   }
 };
 
 int main() {
   Solution sou;
+  cout << sou.isNumeric("12e") << endl;
   return 0;
 }
